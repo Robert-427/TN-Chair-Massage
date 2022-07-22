@@ -19,7 +19,7 @@ export const CustomerNav = () => {
                             <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/tickets" className='border-bottom m-0'>Tickets</NavLink>
+                            <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="" onClick={() => { localStorage.removeItem("massage_user") }}>Logout</NavLink>
