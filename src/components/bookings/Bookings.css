@@ -1,0 +1,32 @@
+.bookings {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking {
+    background-color: rgb(243, 230, 255);
+    border: 2px solid darkcyan;
+    padding: 0.7rem;
+    margin: 0.5rem;
+}
+
+.booking__delete {
+    margin-left: auto;
+    background-color: lightcoral;
+}
+
+.booking__finish {
+    margin-left: auto;
+}
+
+.booking__header {
+    font-size: large;
+    padding: 0 0 1rem 0;
+}
+
+.booking__footer {
+    display: flex;
+    padding: 1rem 0 0 0;
+    border-top: 2px solid darkcyan;
+    margin: 1rem 0 0 0;
+}

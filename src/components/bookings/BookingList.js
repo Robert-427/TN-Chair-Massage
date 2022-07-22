@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Booking } from "./Booking"
+import "./Bookings.css"
 
 export const BookingList = ({ searchTermState }) => {
     const [bookings, setBookings] = useState([])
-    const [employees, setEmployees] = useState([])
     const [filteredBookings, setFilteredBookings] = useState([])
     const navigate = useNavigate()
 
@@ -42,25 +43,23 @@ export const BookingList = ({ searchTermState }) => {
     )
 
     return <>
+        {
+            massageUserObject.staff
+                ? ""
+                : <button onClick={() => navigate("/bookings/create")}>Create New Event</button>
+        }
+
         <h2>List of Bookings</h2>
 
         <article className="bookings">
             {
-                filteredBookings.map((filteredBooking) =>
-                    <section className="booking" key={`booking--${filteredBooking.id}`}>
-                        <header className="booking__header">
-                            Booking {filteredBooking.id}
-                        </header>
-                        <section>{filteredBooking.description}</section>
-                        <footer></footer>
-                    </section>
+                filteredBookings.map(
+                    (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
+                    getAllBookings={getAllBookings}
+                    currentUser={massageUserObject}
+                    bookingObject={filteredBooking} />
                 )
             }
         </article>
     </>
 }
-
-// (booking) => <Ticket key={`filteredBookings--${ticket.id}`} employees={employees}
-//                         getAllTickets={getAllTickets}
-//                         currentUser={honeyUserObject}
-//                         ticketObject={ticket} />
