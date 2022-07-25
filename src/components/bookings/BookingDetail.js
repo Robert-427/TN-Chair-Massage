@@ -2,40 +2,44 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 export const BookingDetails = () => {
-    const [customer, updateCustomer] = useState({})
-    const [booking, updateBookings] = useState({})
+    const [customers, updateCustomers] = useState([])
+    const [booking, updateBooking] = useState({})
     const { bookingId } = useParams()
 
-    const localMassageUser = localStorage.getItem("massage_user")
-    const massageUserObject = JSON.parse(localMassageUser)
-
+    //gets the booking and user info matching for the booking that was clicked
     useEffect(
         () => {
             fetch(`http://localhost:8088/bookings?_expand=user&id=${bookingId}`)
                 .then(response => response.json())
                 .then((data) => {
                     const singleBooking = data[0]
-                    updateBookings(singleBooking)
+                    updateBooking(singleBooking)
                 })
         },
         [bookingId]
     )
 
-    //gets customer and their related user data
+    //gets all customers and their related user data
     useEffect(
         () => {
-            fetch(`http://localhost:8088/customers?userId=${massageUserObject.id}`)
+            fetch(`http://localhost:8088/customers`)
                 .then(response => response.json())
-                .then((data) => {
-                    const singleCustomer = data[0]
-                    updateCustomer(singleCustomer)
+                .then((customerArray) => {
+                    updateCustomers(customerArray)
                 })
         },
         []
     )
 
+    //sorts customer array to find customer mathing current booking
+    let singleCustomer = {}
+    for (const customer of customers) {
+        if (booking.userId === customer.userId)
+            singleCustomer = customer
+    }
+
     return <section className="booking">
-        <header className="booking__header">Event for {customer.businessName}</header>
+        <header className="booking__header">Event for {singleCustomer.businessName}</header>
         <div>Booked by: {booking?.user?.fullName} (Email: {booking?.user?.email})</div>
         <div>To be held at: {booking.location}</div>
         <div>For {booking.hours} hours, with {booking.stations} massage chair stations</div>
