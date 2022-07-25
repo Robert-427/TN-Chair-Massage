@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export const BookingDetails = () => {
     const [customers, updateCustomers] = useState([])
     const [booking, updateBooking] = useState({})
     const { bookingId } = useParams()
+    const navigate = useNavigate()
+
+    //gets local storage user info
+    const localMassageUser = localStorage.getItem("massage_user")
+    const massageUserObject = JSON.parse(localMassageUser)
 
     //gets the booking and user info matching for the booking that was clicked
     useEffect(
@@ -31,6 +36,16 @@ export const BookingDetails = () => {
         []
     )
 
+    const deleteBooking = (id) => {
+        return fetch(`http://localhost:8088/bookings/${id}`, {
+            method: "DELETE"
+        })
+            .then(response => response.json())
+            .then(() => {
+                navigate("/bookings")
+            })
+    }
+
     //sorts customer array to find customer mathing current booking
     let singleCustomer = {}
     for (const customer of customers) {
@@ -46,6 +61,11 @@ export const BookingDetails = () => {
         <div>Rate: ${booking.rate}</div>
         <div>At {booking.startTime} on {booking.startDate}</div>
         <div>Additional Notes: {booking.notes}</div>
-        <footer className="booking__footer">Current Event Status: {booking.status}</footer>
+        <footer className="booking__footer">Current Event Status: {booking.status}
+        {
+            massageUserObject.staff
+                ? <button onClick={() => deleteBooking(booking.id)}>Delete Event</button>
+                : ""
+        }</footer>
     </section>
 }
