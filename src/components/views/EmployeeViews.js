@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { BookingDetails } from "../bookings/BookingDetail"
 import { BookingList } from "../bookings/BookingList"
 // import { EmployeeDetails } from "../employees/EmployeeDetails"
 // import { EmployeeList } from "../employees/EmployeeList"
@@ -26,6 +27,7 @@ export const EmployeeViews = () => {
                 <Route path="customers/:customerId" element={ <CustomerDetails />} />
                 <Route path="profile" element={ <Profile />} /> */}
                 <Route path="bookings" element={ <BookingList />} />
+                <Route path="bookings/:bookingId" element={ <BookingDetails />} />
             </Route>
         </Routes>
     )
