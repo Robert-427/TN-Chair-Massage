@@ -1,3 +1,4 @@
+import { Button } from "reactstrap"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -64,7 +65,7 @@ export const BookingDetails = () => {
         <footer className="booking__footer">Current Event Status: {booking.status}
         {
             massageUserObject.staff
-                ? <button onClick={() => deleteBooking(booking.id)}>Delete Event</button>
+                ? <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
                 : ""
         }</footer>
     </section>
