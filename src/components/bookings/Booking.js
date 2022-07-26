@@ -121,7 +121,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             }
             {
                 currentUser.staff
-                    ? <Button color="danger" onClick={() => deleteBooking(bookingObject.id)}>Delete</Button>
+                    ? ""
                     : canCancel()
             }</footer>
     </section>
