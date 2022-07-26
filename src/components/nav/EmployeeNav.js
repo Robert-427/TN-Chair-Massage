@@ -16,13 +16,7 @@ export const EmployeeNav = () => {
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar >
                         <NavItem>
-                            <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
-                        </NavItem>
-                        <NavItem>
                             <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/employees" className='border-bottom m-0'>Employees</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="" onClick={() => { localStorage.removeItem("massage_user") }}>Logout</NavLink>
@@ -33,3 +27,12 @@ export const EmployeeNav = () => {
         </div>
     )
 }
+
+{/*     
+<NavItem>
+    <NavLink href="/employees" className='border-bottom m-0'>Employees</NavLink>
+</NavItem>
+<NavItem>
+    <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
+</NavItem>
+*/}

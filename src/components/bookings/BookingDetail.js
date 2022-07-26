@@ -64,11 +64,16 @@ export const BookingDetails = () => {
         <div>Rate: ${booking.rate}</div>
         <div>At {booking.startTime} on {booking.startDate}</div>
         <div>Additional Notes: {booking.notes}</div>
-        <footer className="booking__footer">Current Event Status: {booking.status}
-        {
-            massageUserObject.staff
-                ? <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
-                : ""
-        }</footer>
+        <footer className="booking__footer">
+            {
+                booking.canceledDate === ""
+                    ? `Current Event Status: ${booking.status}`
+                    : `Event canceled on ${booking.canceledDate}`
+            }
+            {
+                massageUserObject.staff
+                    ? <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
+                    : ""
+            }</footer>
     </section>
 }
