@@ -17,7 +17,8 @@ export const BookingForm = () => {
         startDate: "",
         location: "",
         notes: "None",
-        canceledDate: ""
+        canceledDate: "",
+        canceledBy: ""
     })
 
     //gets local storage user info
@@ -62,7 +63,8 @@ export const BookingForm = () => {
             startDate: booking.startDate,
             location: booking.location,
             notes: booking.notes,
-            canceledDate: ""
+            canceledDate: "",
+            canceledBy: ""
         }
 
         return fetch(`http://localhost:8088/bookings`, {

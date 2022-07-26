@@ -16,9 +16,6 @@ export const CustomerNav = () => {
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar >
                         <NavItem>
-                            <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
-                        </NavItem>
-                        <NavItem>
                             <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
                         </NavItem>
                         <NavItem>
@@ -30,3 +27,9 @@ export const CustomerNav = () => {
         </div>
     )
 }
+
+{/* 
+<NavItem>
+    <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
+</NavItem> 
+*/}

@@ -31,6 +31,37 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             })
     }
 
+    //if a booking has not been canceled, then the customer has the option to cancel
+    const canCancel = () => {
+        if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied") {
+            return <Button color="danger" onClick={
+                (evt) => {
+                    const copy = { ...bookingObject }
+                    copy.canceledDate = new Date()
+                    copy.status = "Canceled"
+                    cancelBooking(copy)
+                }}>Cancel Event
+            </Button>
+        } else {
+            return ""
+        }
+    }
+
+    //updates booking API with canceled date and user
+    const cancelBooking = (copy) => {
+        return fetch(`http://localhost:8088/bookings/${bookingObject.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(copy)
+        })
+            .then(response => response.json())
+            .then(() => {
+                getAllBookings()
+            })
+    }
+
     //dropdown function to allow chaning of status of specific bookings
     //"bookingUpdate(copy)" sends info to API directly, without first altering State
     //State changed once new info is gotten at end of "bookingUpdate()"
@@ -45,6 +76,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
                         (evt) => {
                             const copy = { ...bookingObject }
                             copy.status = "Pending"
+                            copy.canceledDate = ""
                             bookingUpdate(copy)
                         }}>
                         Pending
@@ -90,7 +122,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             {
                 currentUser.staff
                     ? <Button color="danger" onClick={() => deleteBooking(bookingObject.id)}>Delete</Button>
-                    : ""
+                    : canCancel()
             }</footer>
     </section>
 }
