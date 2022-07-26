@@ -29,4 +29,5 @@
     padding: 1rem 0 0 0;
     border-top: 2px solid darkcyan;
     margin: 1rem 0 0 0;
+    justify-content: space-between;
 }
