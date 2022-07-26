@@ -37,6 +37,7 @@ export const BookingDetails = () => {
         []
     )
 
+    //allows specific booking to be removed from API
     const deleteBooking = (id) => {
         return fetch(`http://localhost:8088/bookings/${id}`, {
             method: "DELETE"
@@ -54,6 +55,7 @@ export const BookingDetails = () => {
             singleCustomer = customer
     }
 
+    //returns listing of booking with all relevant details, pulled from booking, user, and customer data
     return <section className="booking">
         <header className="booking__header">Event for {singleCustomer.businessName}</header>
         <div>Booked by: {booking?.user?.fullName} (Email: {booking?.user?.email})</div>

@@ -42,6 +42,8 @@ export const BookingList = ({ searchTermState }) => {
         [bookings]
     )
 
+    //staff sees list of all booking from API
+    //customers see button to create new booking, and any bookings they already have
     return <>
         {
             massageUserObject.staff

@@ -48,7 +48,7 @@ export const BookingForm = () => {
         []
     )
     
-    //sends updated data to API
+    //sends new booking data to API
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
@@ -78,6 +78,7 @@ export const BookingForm = () => {
             })
     }
 
+    //creates a form for customers to fill out all relevant data about their even
     return (
         <form className="bookingForm">
             <h2 className="bookingFrom__title">Booking New Event</h2>

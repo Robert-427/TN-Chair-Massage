@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from "reactstrap"
 
-export const Booking = ({ bookingObject, currentUser }) => {
+export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     const navigate = useNavigate()
 
+    //function to delete a specific booking from API
     const deleteBooking = (id) => {
         return fetch(`http://localhost:8088/bookings/${id}`, {
             method: "DELETE"
@@ -15,19 +16,24 @@ export const Booking = ({ bookingObject, currentUser }) => {
             })
     }
 
-    const [updatedBooking, update] = useState({
-        userId: bookingObject.userId,
-            rate: bookingObject.rate,
-            hours: bookingObject.hours,
-            stations: bookingObject.stations,
-            status: bookingObject.status,
-            startTime: bookingObject.startTime,
-            startDate: bookingObject.startDate,
-            location: bookingObject.location,
-            notes: bookingObject.notes,
-            canceledDate: bookingObject.canceledDate
-    })
+    //takes updated info from dropdown and edits API, then re-gets all bookings
+    const bookingUpdate = (copy) => {
+        return fetch(`http://localhost:8088/bookings/${bookingObject.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(copy)
+        })
+            .then(response => response.json())
+            .then(() => {
+                getAllBookings()
+            })
+    }
 
+    //dropdown function to allow chaning of status of specific bookings
+    //"bookingUpdate(copy)" sends info to API directly, without first altering State
+    //State changed once new info is gotten at end of "bookingUpdate()"
     const dropDown = () => {
         return (<div>
             <UncontrolledDropdown className="me-2" direction="down">
@@ -36,29 +42,29 @@ export const Booking = ({ bookingObject, currentUser }) => {
                 </DropdownToggle>
                 <DropdownMenu className="status-dropdown">
                     <DropdownItem onClick={
-                            (evt) => {
-                                const copy = { ...updatedBooking }
-                                copy.status = "Pending"
-                                update(copy)
-                            }}>
+                        (evt) => {
+                            const copy = { ...bookingObject }
+                            copy.status = "Pending"
+                            bookingUpdate(copy)
+                        }}>
                         Pending
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem onClick={
-                            (evt) => {
-                                const copy = { ...updatedBooking }
-                                copy.status = "Approved"
-                                update(copy)
-                            }}>
+                        (evt) => {
+                            const copy = { ...bookingObject }
+                            copy.status = "Approved"
+                            bookingUpdate(copy)
+                        }}>
                         Approved
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem onClick={
-                            (evt) => {
-                                const copy = { ...updatedBooking }
-                                copy.status = "Denied"
-                                update(copy)
-                            }}>
+                        (evt) => {
+                            const copy = { ...bookingObject }
+                            copy.status = "Denied"
+                            bookingUpdate(copy)
+                        }}>
                         Denied
                     </DropdownItem>
                 </DropdownMenu>
@@ -67,20 +73,9 @@ export const Booking = ({ bookingObject, currentUser }) => {
         )
     }
 
-    const changeStatus = () => {
-        return fetch(`http://localhost:8088/bookings/${bookingObject.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedBooking)
-        })
-            .then(response => response.json())
-            .then(() => {
-                navigate("/bookings")
-            })
-    }
-
+    //Shows basic individual booking objects, with link to detail view
+    //staff get dropdown function to change status, and delete function to remove booking
+    //customer can see value of status
     return <section className="booking" key={`booking--${bookingObject.id}`}>
         <header className="booking__header">
             <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.location}</Link>
