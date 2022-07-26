@@ -8,6 +8,7 @@ export const EmployeeNav = () => {
 
     const toggleNavbar = () => setCollapsed(!collapsed);
 
+    //staff Navbar Hamburger style
     return (
         <div>
             <Navbar color="faded" light>
@@ -28,7 +29,9 @@ export const EmployeeNav = () => {
     )
 }
 
-{/*     
+
+
+{/*     todo - add link(s) or delete zombie code 
 <NavItem>
     <NavLink href="/employees" className='border-bottom m-0'>Employees</NavLink>
 </NavItem>

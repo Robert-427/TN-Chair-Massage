@@ -53,6 +53,7 @@ export const Register = (props) => {
         setCustomer(copy)
     }
 
+    //creates page to input new customer date to send to API
     return (
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>

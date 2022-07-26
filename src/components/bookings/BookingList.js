@@ -57,9 +57,9 @@ export const BookingList = ({ searchTermState }) => {
             {
                 filteredBookings.map(
                     (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
-                    getAllBookings={getAllBookings}
-                    currentUser={massageUserObject}
-                    bookingObject={filteredBooking} />
+                        getAllBookings={getAllBookings}
+                        currentUser={massageUserObject}
+                        bookingObject={filteredBooking} />
                 )
             }
         </article>

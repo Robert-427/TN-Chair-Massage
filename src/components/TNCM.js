@@ -6,7 +6,7 @@ import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import "./TNCM.css"
 
-
+//combines page views and navbars for overall page setup
 export const TNCM = () => {
 	return <Routes>
 		<Route path="/login" element={<Login />} />

@@ -31,7 +31,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             })
     }
 
-    //if a booking has not been canceled, then the customer has the option to cancel
+    //if a booking has been neither canceled nor denied, then the customer has the option to cancel
     const canCancel = () => {
         if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied") {
             return <Button color="danger" onClick={
@@ -47,7 +47,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }
     }
 
-    //updates booking API with canceled date and user
+    //updates booking API with canceled date
     const cancelBooking = (copy) => {
         return fetch(`http://localhost:8088/bookings/${bookingObject.id}`, {
             method: "PUT",
