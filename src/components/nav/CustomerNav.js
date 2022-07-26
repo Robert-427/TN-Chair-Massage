@@ -8,6 +8,7 @@ export const CustomerNav = () => {
 
     const toggleNavbar = () => setCollapsed(!collapsed);
 
+    //customer Navbar Hamburger style
     return (
         <div>
             <Navbar color="faded" light>
@@ -28,7 +29,9 @@ export const CustomerNav = () => {
     )
 }
 
-{/* 
+
+
+{/* todo - add link or delete zombie code 
 <NavItem>
     <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
 </NavItem> 

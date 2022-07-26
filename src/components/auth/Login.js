@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
+//handles all login procedures
 export const Login = () => {
     const [email, set] = useState("")
     const navigate = useNavigate()
 
+    //gets user informatino from API to store in local storage
+    //if email doesn't match API, triggers alert window
     const handleLogin = (e) => {
         e.preventDefault()
 
@@ -28,6 +31,7 @@ export const Login = () => {
             })
     }
 
+    //creates the login page that accepts email input and checks it against API users
     return (
         <main className="container--login">
             <section>

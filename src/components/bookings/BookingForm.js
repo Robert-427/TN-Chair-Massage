@@ -48,7 +48,7 @@ export const BookingForm = () => {
         },
         []
     )
-    
+
     //sends new booking data to API
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -63,8 +63,7 @@ export const BookingForm = () => {
             startDate: booking.startDate,
             location: booking.location,
             notes: booking.notes,
-            canceledDate: "",
-            canceledBy: ""
+            canceledDate: ""
         }
 
         return fetch(`http://localhost:8088/bookings`, {

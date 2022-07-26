@@ -25,7 +25,7 @@ export const BookingDetails = () => {
         [bookingId]
     )
 
-    //gets all customers and their related user data
+    //gets all customers data and stores in an array
     useEffect(
         () => {
             fetch(`http://localhost:8088/customers`)
@@ -37,6 +37,13 @@ export const BookingDetails = () => {
         []
     )
 
+    //sorts customer array to find customer mathing current booking
+    let singleCustomer = {}
+    for (const customer of customers) {
+        if (booking.userId === customer.userId)
+            singleCustomer = customer
+    }
+
     //allows specific booking to be removed from API
     const deleteBooking = (id) => {
         return fetch(`http://localhost:8088/bookings/${id}`, {
@@ -46,13 +53,6 @@ export const BookingDetails = () => {
             .then(() => {
                 navigate("/bookings")
             })
-    }
-
-    //sorts customer array to find customer mathing current booking
-    let singleCustomer = {}
-    for (const customer of customers) {
-        if (booking.userId === customer.userId)
-            singleCustomer = customer
     }
 
     //returns listing of booking with all relevant details, pulled from booking, user, and customer data
