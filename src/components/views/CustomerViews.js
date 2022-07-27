@@ -5,7 +5,7 @@ import { BookingList } from "../bookings/BookingList"
 
 //Sets up page for customer with links navbar will use
 export const CustomerViews = () => {
-	return (
+    return (
         <Routes>
             <Route path="/" element={
                 <>
@@ -15,9 +15,9 @@ export const CustomerViews = () => {
                     <Outlet />
                 </>
             }>
-                <Route path="bookings" element={ <BookingList />} />
-                <Route path="bookings/create" element={ <BookingForm />} />
-                <Route path="bookings/:bookingId" element={ <BookingDetails />} />
+                <Route path="bookings" element={<BookingList />} />
+                <Route path="bookings/create" element={<BookingForm />} />
+                <Route path="bookings/:bookingId" element={<BookingDetails />} />
             </Route>
         </Routes>
     )

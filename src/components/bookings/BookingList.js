@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Booking } from "./Booking"
 import "./Bookings.css"
 
-export const BookingList = ({ searchTermState }) => {
+export const BookingList = () => {
     const [bookings, setBookings] = useState([])
     const [filteredBookings, setFilteredBookings] = useState([])
     const navigate = useNavigate()
@@ -51,7 +51,13 @@ export const BookingList = ({ searchTermState }) => {
                 : <button onClick={() => navigate("/bookings/create")}>Create New Event</button>
         }
 
-        <h2>List of Bookings</h2>
+        <h2>
+            {
+                massageUserObject.staff
+                    ? `List of All Bookings`
+                    : `Welcome. Here are all your events`
+            }
+        </h2>
 
         <article className="bookings">
             {

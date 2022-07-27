@@ -16,7 +16,7 @@ export const BookingForm = () => {
         startTime: "",
         startDate: "",
         location: "",
-        notes: "None",
+        notes: "",
         canceledDate: "",
         canceledBy: ""
     })

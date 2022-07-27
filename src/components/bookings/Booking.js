@@ -5,17 +5,6 @@ import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Butto
 export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     const navigate = useNavigate()
 
-    //function to delete a specific booking from API
-    const deleteBooking = (id) => {
-        return fetch(`http://localhost:8088/bookings/${id}`, {
-            method: "DELETE"
-        })
-            .then(response => response.json())
-            .then(() => {
-                navigate("/bookings")
-            })
-    }
-
     //takes updated info from dropdown and edits API, then re-gets all bookings
     const bookingUpdate = (copy) => {
         return fetch(`http://localhost:8088/bookings/${bookingObject.id}`, {
@@ -65,7 +54,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     //dropdown function to allow chaning of status of specific bookings
     //"bookingUpdate(copy)" sends info to API directly, without first altering State
     //State changed once new info is gotten at end of "bookingUpdate()"
-    const dropDown = () => {
+    const DropDown = ({ bookingObject }) => {
         return (<div>
             <UncontrolledDropdown className="me-2" direction="down">
                 <DropdownToggle caret color="primary">
@@ -86,6 +75,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
                         (evt) => {
                             const copy = { ...bookingObject }
                             copy.status = "Approved"
+                            copy.canceledDate = ""
                             bookingUpdate(copy)
                         }}>
                         Approved
@@ -95,6 +85,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
                         (evt) => {
                             const copy = { ...bookingObject }
                             copy.status = "Denied"
+                            copy.canceledDate = ""
                             bookingUpdate(copy)
                         }}>
                         Denied
@@ -113,10 +104,17 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.location}</Link>
         </header>
         <section>Date: {bookingObject.startDate}</section>
+        <div>Additional Notes:
+            {
+                bookingObject.notes === ""
+                    ? ` There are no notes attached.`
+                    : ` ${bookingObject.notes}`
+            }
+        </div>
         <footer className="booking__footer">Current Event Status:
             {
                 currentUser.staff
-                    ? dropDown(bookingObject)
+                    ? <DropDown bookingObject={bookingObject} />
                     : ` ${bookingObject.status}`
             }
             {
