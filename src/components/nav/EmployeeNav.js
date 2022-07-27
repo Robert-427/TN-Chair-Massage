@@ -10,9 +10,10 @@ export const EmployeeNav = () => {
 
     //staff Navbar Hamburger style
     return (
-        <div>
+        <>
             <Navbar color="faded" light>
-                <NavbarBrand href="/" className="me-auto">TNCM</NavbarBrand>
+                <NavbarBrand href="/" className="me-auto">TCM
+                </NavbarBrand>
                 <NavbarToggler onClick={toggleNavbar} className="me-2" />
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar >
@@ -25,7 +26,7 @@ export const EmployeeNav = () => {
                     </Nav>
                 </Collapse>
             </Navbar>
-        </div>
+        </>
     )
 }
 

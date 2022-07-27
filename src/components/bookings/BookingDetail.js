@@ -37,7 +37,7 @@ export const BookingDetails = () => {
         []
     )
 
-    //sorts customer array to find customer mathing current booking
+    //sorts customer array to find customer matching current booking
     let singleCustomer = {}
     for (const customer of customers) {
         if (booking.userId === customer.userId)
@@ -63,7 +63,13 @@ export const BookingDetails = () => {
         <div>For {booking.hours} hours, with {booking.stations} massage chair stations</div>
         <div>Rate: ${booking.rate}</div>
         <div>At {booking.startTime} on {booking.startDate}</div>
-        <div>Additional Notes: {booking.notes}</div>
+        <div>Additional Notes:
+            {
+                booking.notes === ""
+                    ? ` There are no notes attached.`
+                    : ` ${booking.notes}`
+            }
+        </div>
         <footer className="booking__footer">
             {
                 booking.canceledDate === ""
@@ -74,6 +80,7 @@ export const BookingDetails = () => {
                 massageUserObject.staff
                     ? <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
                     : ""
-            }</footer>
+            }
+        </footer>
     </section>
 }

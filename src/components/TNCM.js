@@ -8,18 +8,20 @@ import "./TNCM.css"
 
 //combines page views and navbars for overall page setup
 export const TNCM = () => {
-	return <Routes>
-		<Route path="/login" element={<Login />} />
-		<Route path="/register" element={<Register />} />
+	return <>
+		<Routes>
+			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
 
-		<Route path="*" element={
-			<Authorized>
-				<>
+			<Route path="*" element={
+				<Authorized>
 					<NavBar />
 					<ApplicationViews />
-				</>
-			</Authorized>
+					<div className="logo__container"></div>
+				</Authorized>
 
-		} />
-	</Routes>
+			} />
+		</Routes>
+	</>
 }
+

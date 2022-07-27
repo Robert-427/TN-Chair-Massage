@@ -3,6 +3,7 @@ import { Navbar, Collapse, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import "./NavBar.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 export const CustomerNav = () => {
     const [collapsed, setCollapsed] = useState(true);
 
@@ -10,7 +11,7 @@ export const CustomerNav = () => {
 
     //customer Navbar Hamburger style
     return (
-        <div>
+        <>
             <Navbar color="faded" light>
                 <NavbarBrand href="/" className="me-auto">TNCM</NavbarBrand>
                 <NavbarToggler onClick={toggleNavbar} className="me-2" />
@@ -25,7 +26,7 @@ export const CustomerNav = () => {
                     </Nav>
                 </Collapse>
             </Navbar>
-        </div>
+        </>
     )
 }
 
