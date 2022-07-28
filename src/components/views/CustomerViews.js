@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { BookingDetails } from "../bookings/BookingDetail"
 import { BookingForm } from "../bookings/BookingForm"
 import { BookingList } from "../bookings/BookingList"
+import { Profile } from "../profile/Profile"
 
 //Sets up page for customer with links navbar will use
 export const CustomerViews = () => {
@@ -20,13 +21,8 @@ export const CustomerViews = () => {
                 <Route path="bookings" element={<BookingList />} />
                 <Route path="bookings/create" element={<BookingForm />} />
                 <Route path="bookings/:bookingId" element={<BookingDetails />} />
+                <Route path="profile" element={ <Profile />} />
             </Route>
         </Routes>
     )
 }
-
-
-{/*     todo - add link(s) or delete zombie code
-<Route path="profile" element={ <Profile />} /> 
-*/}
-// import { Profile } from "../profile/Profile"
