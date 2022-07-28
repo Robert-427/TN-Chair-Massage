@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from "reactstrap"
+import { Button, CardHeader, ListGroup, ListGroupItem, Card, CardFooter } from "reactstrap"
+import { DropDown } from "./DropDown";
 
 export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     const navigate = useNavigate()
@@ -22,17 +22,18 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
 
     //if a booking has been neither canceled nor denied, then the customer has the option to cancel
     const canCancel = () => {
-        if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied") {
-            return <Button color="danger" onClick={
+        if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied" && currentUser.staff === false) {
+            return <Button color="danger" outline onClick={
                 (evt) => {
                     const copy = { ...bookingObject }
-                    copy.canceledDate = new Date()
                     copy.status = "Canceled"
+                    copy.canceledDate = new Date().toLocaleString()
                     cancelBooking(copy)
                 }}>Cancel Event
             </Button>
         } else {
-            return ""
+            if (currentUser.staff === false)
+                return <Button color="danger" disabled outline>Cancel Event</Button>
         }
     }
 
@@ -51,76 +52,47 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             })
     }
 
-    //dropdown function to allow chaning of status of specific bookings
-    //"bookingUpdate(copy)" sends info to API directly, without first altering State
-    //State changed once new info is gotten at end of "bookingUpdate()"
-    const DropDown = ({ bookingObject }) => {
-        return (<div>
-            <UncontrolledDropdown className="me-2" direction="down">
-                <DropdownToggle caret color="primary">
-                    {bookingObject.status}
-                </DropdownToggle>
-                <DropdownMenu className="status-dropdown">
-                    <DropdownItem onClick={
-                        (evt) => {
-                            const copy = { ...bookingObject }
-                            copy.status = "Pending"
-                            copy.canceledDate = ""
-                            bookingUpdate(copy)
-                        }}>
-                        Pending
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem onClick={
-                        (evt) => {
-                            const copy = { ...bookingObject }
-                            copy.status = "Approved"
-                            copy.canceledDate = ""
-                            bookingUpdate(copy)
-                        }}>
-                        Approved
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem onClick={
-                        (evt) => {
-                            const copy = { ...bookingObject }
-                            copy.status = "Denied"
-                            copy.canceledDate = ""
-                            bookingUpdate(copy)
-                        }}>
-                        Denied
-                    </DropdownItem>
-                </DropdownMenu>
-            </UncontrolledDropdown>
-        </div>
-        )
+    const addedNotes = () => {
+        if (bookingObject.notes === "") {
+            return ` There are no notes attached.`
+        } else {
+            return ` ${bookingObject.notes}`
+        }
+    }
+
+    const footer = () => {
+        if (currentUser.staff) {
+            return <CardFooter className="card__footer">
+                <DropDown bookingObject={bookingObject} bookingUpdate={bookingUpdate} />
+            </CardFooter>
+        } else {
+            return <CardFooter className="card__footer">
+                Status: {bookingObject.status}      {canCancel()}
+            </CardFooter>
+        }
     }
 
     //Shows basic individual booking objects, with link to detail view
     //staff get dropdown function to change status, and delete function to remove booking
     //customer can see value of status
-    return <section className="booking" key={`booking--${bookingObject.id}`}>
-        <header className="booking__header">
+    return <Card className="booking" key={`booking--${bookingObject.id}`}
+        color="primary"
+        outline
+        style={{
+            width: '25rem'
+        }}
+    >
+        <CardHeader tag="h5">
             <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.location}</Link>
-        </header>
-        <section>Date: {bookingObject.startDate}</section>
-        <div>Additional Notes:
-            {
-                bookingObject.notes === ""
-                    ? ` There are no notes attached.`
-                    : ` ${bookingObject.notes}`
-            }
-        </div>
-        <footer className="booking__footer">Current Event Status:
-            {
-                currentUser.staff
-                    ? <DropDown bookingObject={bookingObject} />
-                    : ` ${bookingObject.status}`
-            }
-            {
-                currentUser.staff
-                    ? ""
-                    : canCancel()
-            }</footer>
-    </section>
+        </CardHeader>
+        <ListGroup flush>
+            <ListGroupItem>
+                Date: {bookingObject.startDate}
+            </ListGroupItem>
+            <ListGroupItem>
+                Notes: {addedNotes()}
+            </ListGroupItem>
+            {footer()}
+        </ListGroup>
+    </Card>
 }

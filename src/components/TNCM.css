@@ -18,7 +18,7 @@ body {
     padding: 0 3rem;
     background-image: url("./images/TCM-Logo.png");
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: 400px;
     background-position: center;
     background-attachment: fixed;
     background-color: aliceblue;
@@ -58,6 +58,11 @@ p {
 
 .background {
     background-image: url("./images/TCM-Logo.png");
+}
+
+.headerBar {
+    width: 500px;
+    justify-content: center;
 }
 
 /* .logo__container {

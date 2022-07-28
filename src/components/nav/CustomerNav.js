@@ -3,7 +3,6 @@ import { Navbar, Collapse, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 import "./NavBar.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
 export const CustomerNav = () => {
     const [collapsed, setCollapsed] = useState(true);
 
