@@ -1,4 +1,4 @@
-import { Button } from "reactstrap"
+import { Button, Card, CardBody, CardFooter, CardLink, CardText, CardTitle, ListGroup, ListGroupItem } from "reactstrap"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -55,32 +55,67 @@ export const BookingDetails = () => {
             })
     }
 
+    const notes = () => {
+        if (booking.notes === "") {
+            return ` There are no notes attached.`
+        } else {
+            return ` ${booking.notes}`
+        }
+    }
+
+    const staffButton = () => {
+        if (massageUserObject.staff) {
+            return <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
+        } else {
+            return ""
+        }
+    }
+
+    const footer = () => {
+        if (booking.canceledDate === "") {
+            return `Current Event Status: ${booking.status}`
+        } else {
+            return `Event canceled on ${booking.canceledDate}`
+        }
+    }
+
     //returns listing of booking with all relevant details, pulled from booking, user, and customer data
-    return <section className="booking">
-        <header className="booking__header">Event for {singleCustomer.businessName}</header>
-        <div>Booked by: {booking?.user?.fullName} (Email: {booking?.user?.email})</div>
-        <div>To be held at: {booking.location}</div>
-        <div>For {booking.hours} hours, with {booking.stations} massage chair stations</div>
-        <div>Rate: ${booking.rate}</div>
-        <div>At {booking.startTime} on {booking.startDate}</div>
-        <div>Additional Notes:
-            {
-                booking.notes === ""
-                    ? ` There are no notes attached.`
-                    : ` ${booking.notes}`
-            }
-        </div>
-        <footer className="booking__footer">
-            {
-                booking.canceledDate === ""
-                    ? `Current Event Status: ${booking.status}`
-                    : `Event canceled on ${booking.canceledDate}`
-            }
-            {
-                massageUserObject.staff
-                    ? <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
-                    : ""
-            }
-        </footer>
-    </section>
+    return <Card
+        style={{
+            width: '30rem'
+        }}
+    >
+        {/* <img
+            alt="Card image"
+            src="https://picsum.photos/300/200"
+        /> */}
+        <CardBody>
+            <CardTitle tag="h5">
+                Event for {singleCustomer.businessName}
+            </CardTitle>
+            <CardText>
+                Booked by: {booking?.user?.fullName} (Email: {booking?.user?.email})
+            </CardText>
+        </CardBody>
+        <ListGroup flush>
+            <ListGroupItem>
+                To be held at: {booking.location}
+            </ListGroupItem>
+            <ListGroupItem>
+                Starting at {booking.startTime} on {booking.startDate}
+            </ListGroupItem>
+            <ListGroupItem>
+                For {booking.hours} hours, with {booking.stations} massage chair stations
+            </ListGroupItem>
+            <ListGroupItem>
+                Cost: ${booking.rate}
+            </ListGroupItem>
+            <ListGroupItem>
+                Additional Notes: {notes()}
+            </ListGroupItem>
+        </ListGroup>
+        <CardFooter className="card__footer">
+            {footer()} {staffButton()}
+        </CardFooter>
+    </Card>
 }

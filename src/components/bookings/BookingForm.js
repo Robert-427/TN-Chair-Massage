@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Button } from "reactstrap"
 
 //BookingForm will create new bookings from customer view
 export const BookingForm = () => {
@@ -203,11 +204,11 @@ export const BookingForm = () => {
                         } />
                 </div>
             </fieldset>
-            <button
+            <Button color="primary"
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
                 Submit Event
-            </button>
+            </Button>
         </form>
     )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { Button } from "reactstrap"
 import { Booking } from "./Booking"
 import "./Bookings.css"
 
@@ -48,7 +49,7 @@ export const BookingList = () => {
         {
             massageUserObject.staff
                 ? ""
-                : <button onClick={() => navigate("/bookings/create")}>Create New Event</button>
+                : <Button color="primary" onClick={() => navigate("/bookings/create")}>Create New Event</Button>
         }
 
         <h2>
