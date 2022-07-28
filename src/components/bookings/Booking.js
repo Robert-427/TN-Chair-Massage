@@ -79,7 +79,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         color="primary"
         outline
         style={{
-            width: '25rem'
+            width: '23rem'
         }}
     >
         <CardHeader tag="h5">

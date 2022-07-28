@@ -18,6 +18,9 @@ export const EmployeeNav = () => {
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar >
                         <NavItem>
+                            <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
                         </NavItem>
                         <NavItem>
@@ -35,8 +38,5 @@ export const EmployeeNav = () => {
 {/*     todo - add link(s) or delete zombie code 
 <NavItem>
     <NavLink href="/employees" className='border-bottom m-0'>Employees</NavLink>
-</NavItem>
-<NavItem>
-    <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
 </NavItem>
 */}
