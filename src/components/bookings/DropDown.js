@@ -3,6 +3,16 @@ import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Butto
 
 export const DropDown = ({ bookingObject, bookingUpdate }) => {
 
+    const statusColor = () => {
+        if (bookingObject.status === "Pending") {
+            return "warning"
+        } else if (bookingObject.status === "Approved") {
+            return "success"
+        } else {
+            return "danger"
+        }
+    }
+
     const Canceled = (args) => {
         const [modal, setModal] = useState(false);
 
@@ -14,7 +24,7 @@ export const DropDown = ({ bookingObject, bookingUpdate }) => {
                 <Modal isOpen={modal} toggle={toggle} {...args}>
                     <ModalHeader toggle={toggle}>Event at {bookingObject.location}</ModalHeader>
                     <ModalBody>
-                        This event has been canceled on {bookingObject.canceledDate}, and it's status can not be changed.
+                        This event was canceled on {bookingObject.canceledDate}, and it's status can not be changed.
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={toggle}>Close</Button>{' '}
@@ -27,7 +37,7 @@ export const DropDown = ({ bookingObject, bookingUpdate }) => {
     if (bookingObject.canceledDate === "") {
         return (<div>
             <UncontrolledDropdown className="me-2" direction="down">
-                <DropdownToggle caret color="primary" outline>
+                <DropdownToggle caret color={statusColor()} outline>
                     {bookingObject.status}
                 </DropdownToggle>
                 <DropdownMenu className="status-dropdown">
