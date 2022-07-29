@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button, CardHeader, ListGroup, ListGroupItem, Card, CardFooter } from "reactstrap"
-import { DropDown } from "./DropDown";
+import { DropStatus } from "./DropDown";
 
 export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
-    const navigate = useNavigate()
 
     //takes updated info from dropdown and edits API, then re-gets all bookings
     const bookingUpdate = (copy) => {
@@ -63,7 +62,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     const footer = () => {
         if (currentUser.staff) {
             return <CardFooter className="card__footer">
-                <DropDown bookingObject={bookingObject} bookingUpdate={bookingUpdate} />
+                <DropStatus bookingObject={bookingObject} bookingUpdate={bookingUpdate} />
             </CardFooter>
         } else {
             return <CardFooter className="card__footer">
