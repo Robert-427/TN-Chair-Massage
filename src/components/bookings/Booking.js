@@ -23,7 +23,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     //if a booking has been neither canceled nor denied, then the customer has the option to cancel
     const canCancel = () => {
         if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied" && currentUser.staff === false) {
-            return <Button color="danger" outline onClick={
+            return <Button color={statusColor()} outline onClick={
                 (evt) => {
                     const copy = { ...bookingObject }
                     copy.status = "Canceled"
@@ -72,11 +72,21 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }
     }
 
+    const statusColor = () => {
+        if (bookingObject.status === "Pending") {
+            return "warning"
+        } else if (bookingObject.status === "Approved") {
+            return "success"
+        } else {
+            return "danger"
+        }
+    }
+
     //Shows basic individual booking objects, with link to detail view
     //staff get dropdown function to change status, and delete function to remove booking
     //customer can see value of status
     return <Card className="booking" key={`booking--${bookingObject.id}`}
-        color="primary"
+        color={statusColor()}
         outline
         style={{
             width: '23rem'
