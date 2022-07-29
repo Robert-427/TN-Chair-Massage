@@ -2,11 +2,16 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Button } from "reactstrap"
 import { Booking } from "./Booking"
+import { DropSort } from "./DropDown"
 import "./Bookings.css"
 
 export const BookingList = () => {
     const [bookings, setBookings] = useState([])
     const [filteredBookings, setFilteredBookings] = useState([])
+    const [pendingBookings, setPendingBookings] = useState(false)
+    const [approvedBookings, setApprovedBooking] = useState(false)
+    const [deniedBookings, setDeniedBookings] = useState(false)
+    const [canceledBookings, setCanceledBookings] = useState(false)
     const navigate = useNavigate()
 
     //gets local storage user info
@@ -28,6 +33,54 @@ export const BookingList = () => {
         []
     )
 
+    useEffect(
+        () => {
+            if (pendingBookings) {
+                const pendingBooking = bookings.filter(booking => booking.status === "Pending")
+                setFilteredBookings(pendingBooking)
+            } else {
+                setFilteredBookings(bookings)
+            }
+        },
+        [pendingBookings]
+    )
+
+    useEffect(
+        () => {
+            if (approvedBookings) {
+                const approvedBooking = bookings.filter(booking => booking.status === "Approved")
+                setFilteredBookings(approvedBooking)
+            } else {
+                setFilteredBookings(bookings)
+            }
+        },
+        [approvedBookings]
+    )
+
+    useEffect(
+        () => {
+            if (deniedBookings) {
+                const deniedBooking = bookings.filter(booking => booking.status === "Denied")
+                setFilteredBookings(deniedBooking)
+            } else {
+                setFilteredBookings(bookings)
+            }
+        },
+        [deniedBookings]
+    )
+
+    useEffect(
+        () => {
+            if (canceledBookings) {
+                const canceledBooking = bookings.filter(booking => booking.status === "Canceled")
+                setFilteredBookings(canceledBooking)
+            } else {
+                setFilteredBookings(bookings)
+            }
+        },
+        [canceledBookings]
+    )
+
     //filters the list for either staff or customers
     useEffect(
         () => {
@@ -46,12 +99,6 @@ export const BookingList = () => {
     //staff sees list of all booking from API
     //customers see button to create new booking, and any bookings they already have
     return <>
-        {
-            massageUserObject.staff
-                ? ""
-                : <Button color="primary" onClick={() => navigate("/bookings/create")}>Create New Event</Button>
-        }
-
         <h2>
             {
                 massageUserObject.staff
@@ -59,7 +106,15 @@ export const BookingList = () => {
                     : `Welcome. Here are all your events`
             }
         </h2>
-
+        {
+            massageUserObject.staff
+                ? <DropSort bookingObject={filteredBookings}
+                    setPendingBookings={setPendingBookings}
+                    setApprovedBooking={setApprovedBooking}
+                    setDeniedBookings={setDeniedBookings}
+                    setCanceledBookings={setCanceledBookings} />
+                : <Button color="primary" onClick={() => navigate("/bookings/create")}>Create New Event</Button>
+        }
         <article className="bookings">
             {
                 filteredBookings.map(

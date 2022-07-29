@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 
-export const DropDown = ({ bookingObject, bookingUpdate }) => {
+export const DropStatus = ({ bookingObject, bookingUpdate }) => {
 
     const statusColor = () => {
         if (bookingObject.status === "Pending") {
@@ -74,4 +74,36 @@ export const DropDown = ({ bookingObject, bookingUpdate }) => {
     } else {
         return Canceled()
     }
+}
+
+export const DropSort = ({setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings}) => {
+
+    return <div>
+        <UncontrolledDropdown className="me-2" direction="down">
+            <DropdownToggle caret color="primary" >
+                Sort Bookings
+            </DropdownToggle>
+            <DropdownMenu className="sort-dropdown">
+                <DropdownItem onClick={() => { setPendingBookings(true) }}>
+                    Pending
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => { setApprovedBooking(true) }}>
+                    Approved
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => { setDeniedBookings(true) }}>
+                    Denied
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => { setCanceledBookings(true) }}>
+                    Canceled
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => { setPendingBookings(false) && setApprovedBooking(false) && setDeniedBookings(false) && setCanceledBookings(false)}}>
+                    All Bookings
+                </DropdownItem>
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    </div>
 }
