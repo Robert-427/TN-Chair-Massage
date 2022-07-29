@@ -76,7 +76,42 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
     }
 }
 
-export const DropSort = ({setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings}) => {
+export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings }) => {
+
+    const reset = () => {
+        setPendingBookings(false)
+        setApprovedBooking(false)
+        setDeniedBookings(false)
+        setCanceledBookings(false)
+    }
+
+    const pending = () => {
+        setPendingBookings(true)
+        setApprovedBooking(false)
+        setDeniedBookings(false)
+        setCanceledBookings(false)
+    }
+
+    const approved = () => {
+        setPendingBookings(false)
+        setApprovedBooking(true)
+        setDeniedBookings(false)
+        setCanceledBookings(false)
+    }
+
+    const denied = () => {
+        setPendingBookings(false)
+        setApprovedBooking(false)
+        setDeniedBookings(true)
+        setCanceledBookings(false)
+    }
+
+    const canceled = () => {
+        setPendingBookings(false)
+        setApprovedBooking(false)
+        setDeniedBookings(false)
+        setCanceledBookings(true)
+    }
 
     return <div>
         <UncontrolledDropdown className="me-2" direction="down">
@@ -84,24 +119,24 @@ export const DropSort = ({setPendingBookings, setApprovedBooking, setDeniedBooki
                 Sort Bookings
             </DropdownToggle>
             <DropdownMenu className="sort-dropdown">
-                <DropdownItem onClick={() => { setPendingBookings(true) }}>
+                <DropdownItem onClick={() => { reset() }}>
+                    All Bookings
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={() => { pending(true) }}>
                     Pending
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => { setApprovedBooking(true) }}>
+                <DropdownItem onClick={() => { approved(true) }}>
                     Approved
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => { setDeniedBookings(true) }}>
+                <DropdownItem onClick={() => { denied(true) }}>
                     Denied
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => { setCanceledBookings(true) }}>
+                <DropdownItem onClick={() => { canceled(true) }}>
                     Canceled
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => { setPendingBookings(false) && setApprovedBooking(false) && setDeniedBookings(false) && setCanceledBookings(false)}}>
-                    All Bookings
                 </DropdownItem>
             </DropdownMenu>
         </UncontrolledDropdown>

@@ -9,7 +9,7 @@ export const Success = ({ className, modal, toggle }) => {
                 toggle={toggle} className={className}>
                 <ModalHeader toggle={toggle}>Update</ModalHeader>
                 <ModalBody>
-                    Congradulations! Your profile has been successfully saved.
+                    Congratulations! Your profile has been successfully saved.
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={toggle}>Close</Button>
