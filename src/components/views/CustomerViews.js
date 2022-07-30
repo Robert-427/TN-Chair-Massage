@@ -3,6 +3,7 @@ import { BookingDetails } from "../bookings/BookingDetail"
 import { BookingForm } from "../bookings/BookingForm"
 import { BookingList } from "../bookings/BookingList"
 import { Profile } from "../profile/Profile"
+import { Home } from "./HomePage"
 
 //Sets up page for customer with links navbar will use
 export const CustomerViews = () => {
@@ -22,6 +23,7 @@ export const CustomerViews = () => {
                 <Route path="bookings/create" element={<BookingForm />} />
                 <Route path="bookings/:bookingId" element={<BookingDetails />} />
                 <Route path="profile" element={ <Profile />} />
+                <Route path="home" element={ <Home />} />
             </Route>
         </Routes>
     )

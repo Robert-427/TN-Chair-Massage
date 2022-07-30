@@ -26,7 +26,7 @@ export const Register = (props) => {
                         staff: createdUser.isStaff
                     }))
 
-                    navigate("/")
+                    navigate("/home")
                 }
             })
     }
