@@ -12,7 +12,7 @@ export const EmployeeNav = () => {
     return (
         <>
             <Navbar color="faded" light>
-                <NavbarBrand href="/" className="me-auto">TCM
+                <NavbarBrand href="/home" className="me-auto">TCM
                 </NavbarBrand>
                 <NavbarToggler onClick={toggleNavbar} className="me-2" />
                 <Collapse isOpen={!collapsed} navbar>
@@ -32,11 +32,3 @@ export const EmployeeNav = () => {
         </>
     )
 }
-
-
-
-{/*     todo - add link(s) or delete zombie code 
-<NavItem>
-    <NavLink href="/employees" className='border-bottom m-0'>Employees</NavLink>
-</NavItem>
-*/}
