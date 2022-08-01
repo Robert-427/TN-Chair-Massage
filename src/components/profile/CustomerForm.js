@@ -21,7 +21,7 @@ export const CustomerForm = () => {
     const localMassageUser = localStorage.getItem("massage_user")
     const massageUserObject = JSON.parse(localMassageUser)
 
-    const getAllCustomers = () => {
+    const getThisCustomer = () => {
         fetch(`http://localhost:8088/customers?&userId=${massageUserObject.id}`)
             .then(response => response.json())
             .then((data) => {
@@ -32,7 +32,7 @@ export const CustomerForm = () => {
 
     //sets all bookings
     useEffect(
-        () => { getAllCustomers() },
+        () => { getThisCustomer() },
         []
     )
 
@@ -53,6 +53,8 @@ export const CustomerForm = () => {
     }
 
     return <>
+        <h2 className="profile__header"> Welcome {massageUserObject.name}</h2>
+        <h2 className="profile__subheader">Please edit your profile</h2>
         <Form>
             <Row>
                 <Col md={3}>
@@ -63,6 +65,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessName"
                             name="businessName"
+                            placeholder="Enter your business name here..."
                             value={profile.businessName}
                             onChange={
                                 (evt) => {
@@ -82,6 +85,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessNumber"
                             name="businessNumber"
+                            placeholder="Enter your business phone number here..."
                             value={profile.businessNumber}
                             onChange={
                                 (evt) => {
@@ -103,6 +107,7 @@ export const CustomerForm = () => {
                         <Input
                             id="BusinessStreetAddress"
                             name="BusinessStreetAddress"
+                            placeholder="Enter your business street address here..."
                             value={profile.businessStreetAddress}
                             onChange={
                                 (evt) => {
@@ -124,6 +129,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessTown"
                             name="businessTown"
+                            placeholder="Enter the town your business is in here..."
                             value={profile.businessTown}
                             onChange={
                                 (evt) => {
@@ -143,6 +149,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessState"
                             name="businessState"
+                            placeholder="Enter the state your business is in here..."
                             value={profile.businessState}
                             onChange={
                                 (evt) => {
@@ -162,6 +169,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessZipCode"
                             name="businessZipCode"
+                            placeholder="Enter your business zipcode here..."
                             value={profile.businessZipCode}
                             onChange={
                                 (evt) => {
@@ -178,6 +186,6 @@ export const CustomerForm = () => {
                 Update
             </Button>
         </Form>
-        <Success className={"modal--className"} modal={modal} toggle={toggle}/>
+        <Success className={"modal--className"} modal={modal} toggle={toggle} />
     </>
 }

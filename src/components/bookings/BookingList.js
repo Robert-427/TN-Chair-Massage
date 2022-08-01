@@ -103,7 +103,7 @@ export const BookingList = () => {
             {
                 massageUserObject.staff
                     ? `List of All Bookings`
-                    : `Welcome. Here are all your events`
+                    : `Welcome ${massageUserObject.name}. Here are all your events`
             }
         </h2>
         {
@@ -117,12 +117,15 @@ export const BookingList = () => {
         }
         <article className="bookings">
             {
-                filteredBookings.map(
-                    (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
-                        getAllBookings={getAllBookings}
-                        currentUser={massageUserObject}
-                        bookingObject={filteredBooking} />
-                )
+                filteredBookings.length === 0
+                    ? <h2 className="empty__bookings">It looks as though you have no events currently planned.
+                        If you would like to book a new one, please click the "Create New Event" button above.</h2>
+                    : filteredBookings.map(
+                        (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
+                            getAllBookings={getAllBookings}
+                            currentUser={massageUserObject}
+                            bookingObject={filteredBooking} />
+                    )
             }
         </article>
     </>
