@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
+import "./HomePage.css"
 
 const items = [
-    { src: 'https://picsum.photos/id/123/1200/400', key: 1 },
-    { src: 'https://picsum.photos/id/456/1200/400', key: 2 },
-    { src: 'https://picsum.photos/id/678/1200/400', key: 3 }
+    { src: 'https://picsum.photos/id/456/1200/400', altText: "", caption: "", key: 1 },
+    { src: 'https://picsum.photos/id/678/1200/400', altText: "", caption: "", key: 2 },
+    { src: 'https://picsum.photos/id/123/1200/400', altText: "", caption: "", key: 3 }
 ];
 
 export const Home = (args) => {
@@ -42,16 +43,18 @@ export const Home = (args) => {
     });
 
     return (
-        <Carousel
-            activeIndex={activeIndex}
-            next={next}
-            previous={previous}
-            {...args}
-        >
-            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-            {slides}
-            <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-            <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-        </Carousel>
+        <div className='picture_carousel'>
+            <Carousel
+                activeIndex={activeIndex}
+                next={next}
+                previous={previous}
+                {...args}
+            >
+                <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+                {slides}
+                <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+                <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+            </Carousel>
+        </div>
     );
 }

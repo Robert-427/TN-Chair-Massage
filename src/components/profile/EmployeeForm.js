@@ -53,6 +53,8 @@ export const EmployeeForm = () => {
     }
 
     return <>
+        <h2 className="profile__header"> Welcome {massageUserObject.name}</h2>
+        <h2 className="profile__subheader">Please edit your profile</h2>
         <Form>
             <Row>
                 <Col md={3}>

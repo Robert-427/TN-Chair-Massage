@@ -64,16 +64,3 @@ p {
     width: 500px;
     justify-content: center;
 }
-
-/* .logo__container {
-    height: 100vh;
-}
-
-.logo__container::after {
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    content: "";
-
-} */

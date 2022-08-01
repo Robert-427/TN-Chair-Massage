@@ -1,14 +1,16 @@
 import { useState } from "react"
+import { newStaff } from "./NewStaff"
+import { newCustomer } from "./NewCustomer"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Register = (props) => {
+    let navigate = useNavigate()
     const [customer, setCustomer] = useState({
         email: "",
         fullName: "",
         isStaff: false
     })
-    let navigate = useNavigate()
 
     const registerNewUser = () => {
         return fetch("http://localhost:8088/users", {
@@ -23,10 +25,16 @@ export const Register = (props) => {
                 if (createdUser.hasOwnProperty("id")) {
                     localStorage.setItem("massage_user", JSON.stringify({
                         id: createdUser.id,
-                        staff: createdUser.isStaff
+                        staff: createdUser.isStaff,
+                        name: createdUser.fullName
                     }))
-
-                    navigate("/home")
+                }
+                if (createdUser.isStaff) {
+                    newStaff(createdUser)
+                        .then(() => navigate("/profile"))
+                } else {
+                    newCustomer(createdUser)
+                        .then(() => navigate("/profile"))
                 }
             })
     }
@@ -48,7 +56,7 @@ export const Register = (props) => {
     }
 
     const updateCustomer = (evt) => {
-        const copy = {...customer}
+        const copy = { ...customer }
         copy[evt.target.id] = evt.target.value
         setCustomer(copy)
     }
@@ -61,8 +69,8 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="fullName"> Full Name </label>
                     <input onChange={updateCustomer}
-                           type="text" id="fullName" className="form-control"
-                           placeholder="Enter your name" required autoFocus />
+                        type="text" id="fullName" className="form-control"
+                        placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
@@ -72,7 +80,7 @@ export const Register = (props) => {
                 </fieldset>
                 <fieldset>
                     <input onChange={(evt) => {
-                        const copy = {...customer}
+                        const copy = { ...customer }
                         copy.isStaff = evt.target.checked
                         setCustomer(copy)
                     }}
@@ -86,3 +94,4 @@ export const Register = (props) => {
         </main>
     )
 }
+
