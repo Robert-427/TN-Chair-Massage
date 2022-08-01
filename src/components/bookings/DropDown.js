@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 
+//drop down to change the status of each booking event
 export const DropStatus = ({ bookingObject, bookingUpdate }) => {
 
+    //changes the color based on the status
     const statusColor = () => {
         if (bookingObject.status === "Pending") {
             return "warning"
@@ -76,8 +78,10 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
     }
 }
 
+//drop down for showing and performing the sort functions
 export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings }) => {
 
+    //sets all searches to false
     const reset = () => {
         setPendingBookings(false)
         setApprovedBooking(false)
@@ -85,6 +89,7 @@ export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBook
         setCanceledBookings(false)
     }
 
+    //sets only pending to true
     const pending = () => {
         setPendingBookings(true)
         setApprovedBooking(false)
@@ -92,6 +97,7 @@ export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBook
         setCanceledBookings(false)
     }
 
+    //sets only approved to true
     const approved = () => {
         setPendingBookings(false)
         setApprovedBooking(true)
@@ -99,6 +105,7 @@ export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBook
         setCanceledBookings(false)
     }
 
+    //sets only denied to true
     const denied = () => {
         setPendingBookings(false)
         setApprovedBooking(false)
@@ -106,6 +113,7 @@ export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBook
         setCanceledBookings(false)
     }
 
+    //sets only canceled to true
     const canceled = () => {
         setPendingBookings(false)
         setApprovedBooking(false)
