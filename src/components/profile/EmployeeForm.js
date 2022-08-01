@@ -166,6 +166,7 @@ export const EmployeeForm = () => {
                         <Input
                             id="massageLicenceNumber"
                             name="massageLicenceNumber"
+                            required="required"
                             value={profile.massageLicenceNumber}
                             onChange={
                                 (evt) => {

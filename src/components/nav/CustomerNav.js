@@ -17,10 +17,10 @@ export const CustomerNav = () => {
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar >
                         <NavItem>
-                            <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
+                            <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/bookings" className='border-bottom m-0'>Bookings</NavLink>
+                            <NavLink href="/profile" className='border-bottom m-0'>Profile</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="" onClick={() => { localStorage.removeItem("massage_user") }}>Logout</NavLink>

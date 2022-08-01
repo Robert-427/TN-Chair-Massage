@@ -33,6 +33,16 @@ export const BookingList = () => {
         []
     )
 
+    //Sorts all booking by date
+    const sortByDate = (arr) => {
+        const sorter = (a, b) => {
+            return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+        }
+        arr.sort(sorter)
+    }
+    sortByDate(bookings)
+
+    //Sorts by pending status
     useEffect(
         () => {
             if (pendingBookings) {
@@ -45,6 +55,7 @@ export const BookingList = () => {
         [pendingBookings]
     )
 
+    //Sorts by approved status
     useEffect(
         () => {
             if (approvedBookings) {
@@ -57,6 +68,7 @@ export const BookingList = () => {
         [approvedBookings]
     )
 
+    //Sorts by denied status
     useEffect(
         () => {
             if (deniedBookings) {
@@ -69,6 +81,7 @@ export const BookingList = () => {
         [deniedBookings]
     )
 
+    //Sorts by canceled status
     useEffect(
         () => {
             if (canceledBookings) {
