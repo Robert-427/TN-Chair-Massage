@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap"
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from "reactstrap"
 import { Success } from "./Model"
 
 export const CustomerForm = () => {
+    const [states, setStates] = useState([])
     const [profile, updateProfile] = useState({
         id: 0,
         userId: 0,
@@ -33,6 +34,17 @@ export const CustomerForm = () => {
     //sets all bookings
     useEffect(
         () => { getThisCustomer() },
+        []
+    )
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/states`)
+                .then(response => response.json())
+                .then((statesArray) => {
+                    setStates(statesArray)
+                })
+        },
         []
     )
 
@@ -143,22 +155,29 @@ export const CustomerForm = () => {
                 </Col>
                 <Col md={2}>
                     <FormGroup>
-                        <Label for="businessState">
-                            State
+                        <Label for="state">
+                            State:
                         </Label>
-                        <Input
-                            id="businessState"
-                            name="businessState"
-                            placeholder="Enter the state your business is in here..."
-                            value={profile.businessState}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...profile }
-                                    copy.businessState = evt.target.value
-                                    updateProfile(copy)
-                                }
-                            }
-                        />
+                        <UncontrolledDropdown className="me-2" direction="down">
+                            <DropdownToggle caret color="light" >
+                                {profile.businessState}
+                            </DropdownToggle>
+                            <DropdownMenu className="sort-dropdown">
+                                {states.map(state => {
+                                    return (
+                                        <DropdownItem key={state.id} value={state.name} className="state--name" onClick={
+                                            (evt) => {
+                                                const copy = { ...profile }
+                                                copy.businessState = evt.target.value
+                                                updateProfile(copy)
+                                            }
+                                        }>
+                                            {state.name}
+                                        </DropdownItem>
+                                    )
+                                })}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                     </FormGroup>
                 </Col>
                 <Col md={1}>
