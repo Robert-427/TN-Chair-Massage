@@ -140,7 +140,7 @@ export const BookingDetails = () => {
         </CardBody>
         <ListGroup flush>
             <ListGroupItem>
-                To be held at: {booking.location}
+                To be held at: {booking.address} {booking.city}, {booking.state} {booking.zip}
             </ListGroupItem>
             <ListGroupItem>
                 Starting at {booking.startTime} on {booking.startDate}

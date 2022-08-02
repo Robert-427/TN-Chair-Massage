@@ -94,7 +94,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }}
     >
         <CardHeader tag="h5">
-            <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.location}</Link>
+            <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.address}</Link>
         </CardHeader>
         <ListGroup flush>
             <ListGroupItem>
