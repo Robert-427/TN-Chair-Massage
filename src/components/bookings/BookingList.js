@@ -12,6 +12,7 @@ export const BookingList = () => {
     const [approvedBookings, setApprovedBooking] = useState(false)
     const [deniedBookings, setDeniedBookings] = useState(false)
     const [canceledBookings, setCanceledBookings] = useState(false)
+    const [archivedBookings, setArchivedBookings] = useState(false)
     const navigate = useNavigate()
 
     //gets local storage user info
@@ -94,12 +95,26 @@ export const BookingList = () => {
         [canceledBookings]
     )
 
+    //Sorts by archived status
+    useEffect(
+        () => {
+            if (archivedBookings) {
+                const archivedBookings = bookings.filter(booking => booking.status === "Archived")
+                setFilteredBookings(archivedBookings)
+            } else {
+                setFilteredBookings(bookings)
+            }
+        },
+        [archivedBookings]
+    )
+
     //filters the list for either staff or customers
     useEffect(
         () => {
             if (massageUserObject.staff) {
                 //employees can see all bookings
-                setFilteredBookings(bookings)
+                const activeBookings = bookings.filter(booking => booking.status !== "Archived")
+                setFilteredBookings(activeBookings)
             } else {
                 //customers can only see their own bookings
                 const myBookings = bookings.filter(booking => booking.userId === massageUserObject.id)
@@ -108,6 +123,23 @@ export const BookingList = () => {
         },
         [bookings]
     )
+
+    //shows list of bookings based on various factors
+    const listing = () => {
+        if (filteredBookings.length === 0 && massageUserObject.staff) {
+            return <h2 className="empty__search">It looks as there there are no events that match that Status.</h2>
+        } else if (filteredBookings.length === 0) {
+            return <h2 className="empty__bookings">It looks as though you have no events currently planned.
+                If you would like to book a new one, please click the "Create New Event" button above.</h2>
+        } else {
+            return filteredBookings.map(
+                (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
+                    getAllBookings={getAllBookings}
+                    currentUser={massageUserObject}
+                    bookingObject={filteredBooking} />
+            )
+        }
+    }
 
     //staff sees list of all booking from API
     //customers see button to create new booking, and any bookings they already have
@@ -125,21 +157,13 @@ export const BookingList = () => {
                     setPendingBookings={setPendingBookings}
                     setApprovedBooking={setApprovedBooking}
                     setDeniedBookings={setDeniedBookings}
-                    setCanceledBookings={setCanceledBookings} />
+                    setCanceledBookings={setCanceledBookings}
+                    setArchivedBookings={setArchivedBookings} 
+                    />
                 : <Button color="primary" onClick={() => navigate("/bookings/create")}>Create New Event</Button>
         }
         <article className="bookings">
-            {
-                filteredBookings.length === 0
-                    ? <h2 className="empty__bookings">It looks as though you have no events currently planned.
-                        If you would like to book a new one, please click the "Create New Event" button above.</h2>
-                    : filteredBookings.map(
-                        (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}
-                            getAllBookings={getAllBookings}
-                            currentUser={massageUserObject}
-                            bookingObject={filteredBooking} />
-                    )
-            }
+            {listing()}
         </article>
     </>
 }
