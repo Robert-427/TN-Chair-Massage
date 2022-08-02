@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap"
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label, Row, UncontrolledDropdown } from "reactstrap"
 import { Success } from "./Model"
 
 export const EmployeeForm = () => {
+    const [states, setStates] = useState([])
     const [profile, updateProfile] = useState({
         id: 0,
         userId: 0,
@@ -33,6 +34,17 @@ export const EmployeeForm = () => {
     //sets all bookings
     useEffect(
         () => { getAllEmployees() },
+        []
+    )
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/states`)
+                .then(response => response.json())
+                .then((statesArray) => {
+                    setStates(statesArray)
+                })
+        },
         []
     )
 
@@ -122,18 +134,26 @@ export const EmployeeForm = () => {
                         <Label for="state">
                             State:
                         </Label>
-                        <Input
-                            id="state"
-                            name="state"
-                            value={profile.state}
-                            onChange={
-                                (evt) => {
-                                    const copy = { ...profile }
-                                    copy.state = evt.target.value
-                                    updateProfile(copy)
-                                }
-                            }
-                        />
+                        <UncontrolledDropdown className="me-2" direction="down">
+                            <DropdownToggle caret color="light" >
+                                {profile.state}
+                            </DropdownToggle>
+                            <DropdownMenu className="sort-dropdown">
+                                {states.map(state => {
+                                    return (
+                                        <DropdownItem key={state.id} value={state.name} className="state--name" onClick={
+                                            (evt) => {
+                                                const copy = { ...profile }
+                                                copy.state = evt.target.value
+                                                updateProfile(copy)
+                                            }
+                                        }>
+                                            {state.name}
+                                        </DropdownItem>
+                                    )
+                                })}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                     </FormGroup>
                 </Col>
                 <Col md={1}>
@@ -185,13 +205,3 @@ export const EmployeeForm = () => {
         <Success className={"modal--className"} modal={modal} toggle={toggle} />
     </>
 }
-
-{/* 
-
-
-
- 
-                
-                
-                
-*/}
