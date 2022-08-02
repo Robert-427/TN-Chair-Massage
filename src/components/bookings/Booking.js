@@ -21,7 +21,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
 
     //if a booking has been neither canceled nor denied, then the customer has the option to cancel
     const canCancel = () => {
-        if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied" && currentUser.staff === false) {
+        if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied" && bookingObject.status !== "Archived" && currentUser.staff === false) {
             return <Button color={statusColor()} outline onClick={
                 (evt) => {
                     const copy = { ...bookingObject }
@@ -76,6 +76,8 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             return "warning"
         } else if (bookingObject.status === "Approved") {
             return "success"
+        } else if (bookingObject.status === "Archived") {
+            return "secondary"
         } else {
             return "danger"
         }
@@ -105,3 +107,4 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         </ListGroup>
     </Card>
 }
+

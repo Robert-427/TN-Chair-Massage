@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 export const BookingDetails = () => {
     const [customers, updateCustomers] = useState([])
     const [booking, updateBooking] = useState({})
+    const [bookingOnly, updateBookingOnly] = useState({})
     const { bookingId } = useParams()
     const navigate = useNavigate()
 
@@ -20,6 +21,18 @@ export const BookingDetails = () => {
                 .then((data) => {
                     const singleBooking = data[0]
                     updateBooking(singleBooking)
+                })
+        },
+        [bookingId]
+    )
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/bookings?&id=${bookingId}`)
+                .then(response => response.json())
+                .then((data) => {
+                    const singleBookingOnly = data[0]
+                    updateBookingOnly(singleBookingOnly)
                 })
         },
         [bookingId]
@@ -55,6 +68,32 @@ export const BookingDetails = () => {
             })
     }
 
+    const bookingUpdate = (copy) => {
+        return fetch(`http://localhost:8088/bookings/${bookingId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(copy)
+        })
+            .then(response => response.json())
+            .then(() => {
+                navigate("/bookings")
+            })
+    }
+
+    const archiveButton = () => {
+        if (booking.status !== "Archived" && massageUserObject.staff === true) {
+            return <Button color="secondary" onClick={
+                (evt) => {
+                    const copy = { ...bookingOnly }
+                    copy.status = "Archived"
+                    bookingUpdate(copy)
+                }}>Archive Event</Button>
+        }
+    }
+
+    //notes section will display the note or message that there aren't any notes.
     const notes = () => {
         if (booking.notes === "") {
             return ` There are no notes attached.`
@@ -63,6 +102,7 @@ export const BookingDetails = () => {
         }
     }
 
+    //staff gets a button to delete the current booking
     const staffButton = () => {
         if (massageUserObject.staff) {
             return <Button color="danger" onClick={() => deleteBooking(booking.id)}>Delete Event</Button>
@@ -71,6 +111,7 @@ export const BookingDetails = () => {
         }
     }
 
+    //Botton of card shows current status or if the event was canceled
     const footer = () => {
         if (booking.canceledDate === "") {
             return `Current Event Status: ${booking.status}`
@@ -115,7 +156,7 @@ export const BookingDetails = () => {
             </ListGroupItem>
         </ListGroup>
         <CardFooter className="card__footer">
-            {footer()} {staffButton()}
+            {footer()} {archiveButton()} {staffButton()}
         </CardFooter>
     </Card>
 }

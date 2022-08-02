@@ -105,7 +105,8 @@ export const BookingForm = () => {
                                     </option>)
                             }
                         )
-                        } </select>
+                        }
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
@@ -129,7 +130,8 @@ export const BookingForm = () => {
                                     </option>)
                             }
                         )
-                        } </select>
+                        }
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
