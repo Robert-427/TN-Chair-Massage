@@ -25,7 +25,7 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
         if (bookingObject.status === "Canceled") {
             return (
                 <div>
-                    <Button color="statusColor" onClick={toggle}>{bookingObject.status}</Button>
+                    <Button color={statusColor()} outline onClick={toggle}>{bookingObject.status}</Button>
                     <Modal isOpen={modal} toggle={toggle} {...args}>
                         <ModalHeader toggle={toggle}>Event at {bookingObject.location}</ModalHeader>
                         <ModalBody>
@@ -40,7 +40,7 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
         } else {
             return (
                 <div>
-                    <Button color="statusColor" onClick={toggle}>{bookingObject.status}</Button>
+                    <Button color={statusColor()} onClick={toggle}>{bookingObject.status}</Button>
                     <Modal isOpen={modal} toggle={toggle} {...args}>
                         <ModalHeader toggle={toggle}>Event at {bookingObject.location}</ModalHeader>
                         <ModalBody>
@@ -98,7 +98,7 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
 }
 
 //drop down for showing and performing the sort functions
-export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings, setArchivedBookings }) => {
+export const DropSort = ({ setPendingBookings, setApprovedBooking, setDeniedBookings, setCanceledBookings }) => {
 
     //sets all searches to false
     const reset = () => {

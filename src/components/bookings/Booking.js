@@ -22,7 +22,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
     //if a booking has been neither canceled nor denied, then the customer has the option to cancel
     const canCancel = () => {
         if (bookingObject.canceledDate === "" && bookingObject.status !== "Denied" && bookingObject.status !== "Archived" && currentUser.staff === false) {
-            return <Button color={statusColor()} outline onClick={
+            return <Button color="danger" outline onClick={
                 (evt) => {
                     const copy = { ...bookingObject }
                     copy.status = "Canceled"
@@ -94,7 +94,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }}
     >
         <CardHeader tag="h5">
-            <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.location}</Link>
+            <Link to={`/bookings/${bookingObject.id}`}>Event at {bookingObject.address}</Link>
         </CardHeader>
         <ListGroup flush>
             <ListGroupItem>

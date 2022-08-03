@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button } from "reactstrap"
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from "reactstrap"
 
 //BookingForm will create new bookings from customer view
 export const BookingForm = () => {
     const [hours, setHours] = useState([])
     const [stations, setStations] = useState([])
+    const [states, setStates] = useState([])
     const navigate = useNavigate()
 
     const [booking, update] = useState({
@@ -16,7 +17,10 @@ export const BookingForm = () => {
         status: "Pending",
         startTime: "",
         startDate: "",
-        location: "",
+        address: "",
+        city: "",
+        state: "Tennessee",
+        zip: 0,
         notes: "",
         canceledDate: "",
         canceledBy: ""
@@ -50,6 +54,17 @@ export const BookingForm = () => {
         []
     )
 
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/states`)
+                .then(response => response.json())
+                .then((statesArray) => {
+                    setStates(statesArray)
+                })
+        },
+        []
+    )
+
     //sends new booking data to API
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -62,7 +77,10 @@ export const BookingForm = () => {
             status: "Pending",
             startTime: booking.startTime,
             startDate: booking.startDate,
-            location: booking.location,
+            address: booking.address,
+            city: booking.city,
+            state: booking.state,
+            zip: booking.zip,
             notes: booking.notes,
             canceledDate: ""
         }
@@ -84,110 +102,194 @@ export const BookingForm = () => {
     return (
         <form className="bookingForm">
             <h2 className="bookingFrom__title">Booking New Event</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="hours">How many Hours: </label>
-                    <select
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.hours = parseInt(evt.target.value)
-                                copy.rate = (copy.stations * copy.hours * 75)
-                                update(copy)
-                            }
-                        }>
-                        <option value={0}>Select...</option>
-                        {hours.map(
-                            (hour) => {
-                                return (
-                                    <option key={hour.id} className="hour__length" name="hour__length" value={hour.id}>
-                                        {hour.length}
-                                    </option>)
-                            }
-                        )
-                        }
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="stations">How many Massage Stations: </label>
-                    <select
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.stations = parseInt(evt.target.value)
-                                copy.rate = (copy.stations * copy.hours * 75)
-                                update(copy)
-                            }
-                        }>
-                        <option value={0}>Select...</option>
-                        {stations.map(
-                            (station) => {
-                                return (
-                                    <option key={station.id} className="station__therapists" name="station__therapists" value={station.id}>
-                                        {station.therapists}
-                                    </option>)
-                            }
-                        )
-                        }
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="time">Time:</label>
-                    <input
-                        required autoFocus
-                        type="time"
-                        className="form-control"
-                        placeholder="Time event is to start"
-                        value={booking.startTime}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.startTime = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="date">Date:</label>
-                    <input
-                        required autoFocus
-                        type="date"
-                        className="form-control"
-                        placeholder="Date of the event"
-                        value={booking.startDate}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.startDate = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="location">Location:</label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Location Event's full addresss..."
-                        value={booking.location}
-                        onChange={
-                            (evt) => {
-                                const copy = { ...booking }
-                                copy.location = evt.target.value
-                                update(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
+            <Row>
+                <Col md={2}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="hours">How many Hours: </label>
+                            <UncontrolledDropdown className="me-2" direction="down">
+                                <DropdownToggle caret color="light" >
+                                    {booking.hours}
+                                </DropdownToggle>
+                                <DropdownMenu className="sort-dropdown">
+                                    {hours.map(hour => {
+                                        return (
+                                            <DropdownItem key={hour.id} value={hour.id} className="hour" onClick={
+                                                (evt) => {
+                                                    const copy = { ...booking }
+                                                    copy.hours = parseInt(evt.target.value)
+                                                    copy.rate = (copy.stations * copy.hours * 75)
+                                                    update(copy)
+                                                }
+                                            }>
+                                                {hour.length}
+                                            </DropdownItem>
+                                        )
+                                    })}
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </div>
+                    </fieldset>
+                </Col>
+                <Col md={3}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="stations">How many Massage Stations: </label>
+                            <UncontrolledDropdown className="me-2" direction="down">
+                                <DropdownToggle caret color="light" >
+                                    {booking.stations}
+                                </DropdownToggle>
+                                <DropdownMenu className="sort-dropdown">
+                                    {stations.map(station => {
+                                        return (
+                                            <DropdownItem key={station.id} value={station.id} className="station" onClick={
+                                                (evt) => {
+                                                    const copy = { ...booking }
+                                                    copy.stations = parseInt(evt.target.value)
+                                                    copy.rate = (copy.stations * copy.hours * 75)
+                                                    update(copy)
+                                                }
+                                            }>
+                                                {station.therapists}
+                                            </DropdownItem>
+                                        )
+                                    })}
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </div>
+                    </fieldset>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={3}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="time">Time:</label>
+                            <input
+                                required autoFocus
+                                type="time"
+                                className="form-control"
+                                placeholder="Time event is to start"
+                                value={booking.startTime}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.startTime = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </Col>
+                <Col md={3}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="date">Date:</label>
+                            <input
+                                required autoFocus
+                                type="date"
+                                className="form-control"
+                                placeholder="Date of the event"
+                                value={booking.startDate}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.startDate = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={4}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="location">Location:</label>
+                            <input
+                                required autoFocus
+                                type="text"
+                                className="form-control"
+                                placeholder="Address of event..."
+                                value={booking.location}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.address = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </Col>
+                <Col md={3}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="city">City:</label>
+                            <input
+                                required autoFocus
+                                type="text"
+                                className="form-control"
+                                placeholder="City..."
+                                value={booking.city}
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.city = evt.target.value
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </Col>
+                <Col md={2}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="state">State:</label>
+                            <UncontrolledDropdown className="me-2" direction="down">
+                                <DropdownToggle caret color="light" >
+                                    {booking.state}
+                                </DropdownToggle>
+                                <DropdownMenu className="sort-dropdown">
+                                    {states.map(state => {
+                                        return (
+                                            <DropdownItem key={state.id} value={state.name} className="state--name" onClick={
+                                                (evt) => {
+                                                    const copy = { ...booking }
+                                                    copy.state = evt.target.value
+                                                    update(copy)
+                                                }
+                                            }>
+                                                {state.name}
+                                            </DropdownItem>
+                                        )
+                                    })}
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </div>
+                    </fieldset>
+                </Col>
+                <Col md={2}>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="zip">Zip Code:</label>
+                            <input
+                                required autoFocus
+                                type="number"
+                                className="form-control"
+                                placeholder="Zip Code..."
+                                onChange={
+                                    (evt) => {
+                                        const copy = { ...booking }
+                                        copy.zip = parseInt(evt.target.value)
+                                        update(copy)
+                                    }
+                                } />
+                        </div>
+                    </fieldset>
+                </Col>
+            </Row>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="notes">Notes:</label>
