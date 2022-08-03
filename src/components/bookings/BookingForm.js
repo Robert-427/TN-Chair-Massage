@@ -19,7 +19,7 @@ export const BookingForm = () => {
         startDate: "",
         address: "",
         city: "",
-        state: "",
+        state: "Tennessee",
         zip: 0,
         notes: "",
         canceledDate: "",
@@ -109,7 +109,7 @@ export const BookingForm = () => {
                             <label htmlFor="hours">How many Hours: </label>
                             <UncontrolledDropdown className="me-2" direction="down">
                                 <DropdownToggle caret color="light" >
-                                    Select...
+                                    {booking.hours}
                                 </DropdownToggle>
                                 <DropdownMenu className="sort-dropdown">
                                     {hours.map(hour => {
@@ -137,7 +137,7 @@ export const BookingForm = () => {
                             <label htmlFor="stations">How many Massage Stations: </label>
                             <UncontrolledDropdown className="me-2" direction="down">
                                 <DropdownToggle caret color="light" >
-                                    Select...
+                                    {booking.stations}
                                 </DropdownToggle>
                                 <DropdownMenu className="sort-dropdown">
                                     {stations.map(station => {
@@ -243,13 +243,13 @@ export const BookingForm = () => {
                         </div>
                     </fieldset>
                 </Col>
-                <Col md={1}>
+                <Col md={2}>
                     <fieldset>
                         <div className="form-group">
                             <label htmlFor="state">State:</label>
                             <UncontrolledDropdown className="me-2" direction="down">
                                 <DropdownToggle caret color="light" >
-                                    State
+                                    {booking.state}
                                 </DropdownToggle>
                                 <DropdownMenu className="sort-dropdown">
                                     {states.map(state => {

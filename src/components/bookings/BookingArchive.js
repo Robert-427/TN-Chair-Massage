@@ -28,7 +28,7 @@ export const ArchiveList = () => {
 
     const sortByDate = (arr) => {
         const sorter = (a, b) => {
-            return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+            return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
         }
         arr.sort(sorter)
     }

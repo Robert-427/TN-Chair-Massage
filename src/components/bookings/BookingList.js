@@ -117,7 +117,7 @@ export const BookingList = () => {
                 setFilteredBookings(activeBookings)
             } else {
                 //customers can only see their own bookings
-                const myBookings = bookings.filter(booking => booking.userId === massageUserObject.id)
+                const myBookings = bookings.filter(booking => booking.userId === massageUserObject.id && booking.status !== "Archived")
                 setFilteredBookings(myBookings)
             }
         },
