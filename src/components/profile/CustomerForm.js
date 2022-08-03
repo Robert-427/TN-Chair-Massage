@@ -64,6 +64,14 @@ export const CustomerForm = () => {
             })
     }
 
+    const state = () => {
+        if (profile.businessState === "") {
+            return "Select..."
+        } else {
+            return `${profile.businessState}`
+        }
+    }
+
     return <>
         <h2 className="profile__header"> Welcome {massageUserObject.name}</h2>
         <h2 className="profile__subheader">Please edit your profile</h2>
@@ -77,7 +85,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessName"
                             name="businessName"
-                            placeholder="Enter your business name here..."
+                            placeholder="Business name here..."
                             value={profile.businessName}
                             onChange={
                                 (evt) => {
@@ -97,7 +105,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessNumber"
                             name="businessNumber"
-                            placeholder="Enter your business phone number here..."
+                            placeholder="Business phone..."
                             value={profile.businessNumber}
                             onChange={
                                 (evt) => {
@@ -141,7 +149,7 @@ export const CustomerForm = () => {
                         <Input
                             id="businessTown"
                             name="businessTown"
-                            placeholder="Enter the town your business is in here..."
+                            placeholder="Business town..."
                             value={profile.businessTown}
                             onChange={
                                 (evt) => {
@@ -160,7 +168,7 @@ export const CustomerForm = () => {
                         </Label>
                         <UncontrolledDropdown className="me-2" direction="down">
                             <DropdownToggle caret color="light" >
-                                {profile.businessState}
+                                {state()}
                             </DropdownToggle>
                             <DropdownMenu className="sort-dropdown">
                                 {states.map(state => {

@@ -64,6 +64,14 @@ export const EmployeeForm = () => {
             })
     }
 
+    const state = () => {
+        if (profile.businessState === "") {
+            return "Select..."
+        } else {
+            return `${profile.state}`
+        }
+    }
+
     return <>
         <h2 className="profile__header"> Welcome {massageUserObject.name}</h2>
         <h2 className="profile__subheader">Please edit your profile</h2>
@@ -136,7 +144,7 @@ export const EmployeeForm = () => {
                         </Label>
                         <UncontrolledDropdown className="me-2" direction="down">
                             <DropdownToggle caret color="light" >
-                                {profile.state}
+                                {state()}
                             </DropdownToggle>
                             <DropdownMenu className="sort-dropdown">
                                 {states.map(state => {
