@@ -21,7 +21,8 @@ export const Login = () => {
                     localStorage.setItem("massage_user", JSON.stringify({
                         id: user.id,
                         staff: user.isStaff,
-                        name: user.fullName
+                        name: user.fullName,
+                        blackList: user.blackListed
                     }))
 
                     navigate("/home")

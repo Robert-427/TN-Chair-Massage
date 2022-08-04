@@ -22,8 +22,8 @@ export const CustomerViews = () => {
                 <Route path="bookings" element={<BookingList />} />
                 <Route path="bookings/create" element={<BookingForm />} />
                 <Route path="bookings/:bookingId" element={<BookingDetails />} />
-                <Route path="profile" element={ <Profile />} />
-                <Route path="home" element={ <Home />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="home" element={<Home />} />
             </Route>
         </Routes>
     )

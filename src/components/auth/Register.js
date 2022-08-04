@@ -9,7 +9,8 @@ export const Register = (props) => {
     const [customer, setCustomer] = useState({
         email: "",
         fullName: "",
-        isStaff: false
+        isStaff: false,
+        blackList: false
     })
 
     const registerNewUser = () => {

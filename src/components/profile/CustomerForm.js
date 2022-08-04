@@ -22,6 +22,7 @@ export const CustomerForm = () => {
     const localMassageUser = localStorage.getItem("massage_user")
     const massageUserObject = JSON.parse(localMassageUser)
 
+    //gets the current customer only
     const getThisCustomer = () => {
         fetch(`http://localhost:8088/customers?&userId=${massageUserObject.id}`)
             .then(response => response.json())
@@ -48,6 +49,7 @@ export const CustomerForm = () => {
         []
     )
 
+    //saves updates to profile and triggers modal
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
@@ -64,6 +66,7 @@ export const CustomerForm = () => {
             })
     }
 
+    //dropdown will populate the state if one is already picked
     const state = () => {
         if (profile.businessState === "") {
             return "Select..."

@@ -158,8 +158,7 @@ export const BookingList = () => {
                     setApprovedBooking={setApprovedBooking}
                     setDeniedBookings={setDeniedBookings}
                     setCanceledBookings={setCanceledBookings}
-                    setArchivedBookings={setArchivedBookings} 
-                    />
+                    setArchivedBookings={setArchivedBookings} />
                 : <Button color="primary" onClick={() => navigate("/bookings/create")}>Create New Event</Button>
         }
         <article className="bookings">

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
 import "./HomePage.css"
 
+//images for the slideshow
 const items = [
     { src: 'https://picsum.photos/id/456/1200/400', altText: "", caption: "", key: 1 },
     { src: 'https://picsum.photos/id/678/1200/400', altText: "", caption: "", key: 2 },
     { src: 'https://picsum.photos/id/123/1200/400', altText: "", caption: "", key: 3 }
 ];
 
+//homepage image slideshow
 export const Home = (args) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);

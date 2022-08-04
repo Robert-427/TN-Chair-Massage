@@ -18,5 +18,3 @@ export const Success = ({ className, modal, toggle }) => {
         </div>
     );
 }
-
-{/* <Button color="danger" onClick={toggle}>Click Me</Button> */ }
