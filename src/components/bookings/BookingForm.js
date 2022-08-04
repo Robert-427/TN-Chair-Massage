@@ -103,7 +103,7 @@ export const BookingForm = () => {
     return <>
         {
             massageUserObject.blackList
-                ? <h2>{massageUserObject.name} has been blacklisted from all legitimate massage establishments</h2>
+                ? <h2>{massageUserObject.name} has been blacklisted from all legitimate massage establishments.</h2>
                 : (< form className="bookingForm" >
                     <h2 className="bookingFrom__title">Booking New Event</h2>
                     <Row>
