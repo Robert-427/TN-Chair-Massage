@@ -68,6 +68,7 @@ export const BookingDetails = () => {
             })
     }
 
+    //updates the booking with the new information
     const bookingUpdate = (copy) => {
         return fetch(`http://localhost:8088/bookings/${bookingId}`, {
             method: "PUT",
@@ -82,6 +83,7 @@ export const BookingDetails = () => {
             })
     }
 
+    //adds button for staff to achive the event
     const archiveButton = () => {
         if (booking.status !== "Archived" && massageUserObject.staff === true) {
             return <Button color="secondary" onClick={
@@ -121,15 +123,7 @@ export const BookingDetails = () => {
     }
 
     //returns listing of booking with all relevant details, pulled from booking, user, and customer data
-    return <Card
-        style={{
-            width: '30rem'
-        }}
-    >
-        {/* <img
-            alt="Card image"
-            src="https://picsum.photos/300/200"
-        /> */}
+    return <Card style={{ width: '30rem' }}>
         <CardBody>
             <CardTitle tag="h5">
                 Event for {singleCustomer.businessName}

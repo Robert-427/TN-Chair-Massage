@@ -17,6 +17,7 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
         }
     }
 
+    //sets up modal to popup when the status button is clicked if the event is canceled or archived
     const Canceled = (args) => {
         const [modal, setModal] = useState(false);
 
@@ -55,6 +56,7 @@ export const DropStatus = ({ bookingObject, bookingUpdate }) => {
         }
     }
 
+    //if event hasn't been canceled or archived the dropdown will render
     if (bookingObject.canceledDate === "" && bookingObject.status !== "Archived") {
         return (<div>
             <UncontrolledDropdown className="me-2" direction="down">

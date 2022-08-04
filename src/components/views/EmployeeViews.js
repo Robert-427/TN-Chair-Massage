@@ -21,9 +21,9 @@ export const EmployeeViews = () => {
             }>
                 <Route path="bookings" element={<BookingList />} />
                 <Route path="bookings/:bookingId" element={<BookingDetails />} />
-                <Route path="profile" element={ <Profile />} />
-                <Route path="home" element={ <Home />} />
-                <Route path="archive" element={ <ArchiveList /> } />
+                <Route path="profile" element={<Profile />} />
+                <Route path="home" element={<Home />} />
+                <Route path="archive" element={<ArchiveList />} />
             </Route>
         </Routes>
     )

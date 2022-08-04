@@ -48,6 +48,7 @@ export const EmployeeForm = () => {
         []
     )
 
+    //saves update to profile and triggers modal
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
@@ -64,6 +65,7 @@ export const EmployeeForm = () => {
             })
     }
 
+    //populates the state date in the dropdown if it's already saved
     const state = () => {
         if (profile.businessState === "") {
             return "Select..."
@@ -182,7 +184,6 @@ export const EmployeeForm = () => {
                             }
                         />
                     </FormGroup>
-
                 </Col>
             </Row>
             <Row>

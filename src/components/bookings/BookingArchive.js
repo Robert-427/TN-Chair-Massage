@@ -26,6 +26,7 @@ export const ArchiveList = () => {
         []
     )
 
+    //sorts all archived books in inverse date order
     const sortByDate = (arr) => {
         const sorter = (a, b) => {
             return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
@@ -34,6 +35,7 @@ export const ArchiveList = () => {
     }
     sortByDate(bookings)
 
+    //filters list to only show archived events
     useEffect(
         () => {
             if (massageUserObject.staff) {
@@ -45,6 +47,7 @@ export const ArchiveList = () => {
         [bookings]
     )
 
+    //generates each booking event
     const listing = () => {
         return filteredBookings.map(
             (filteredBooking) => <Booking key={`filteredBookings--${filteredBooking.id}`}

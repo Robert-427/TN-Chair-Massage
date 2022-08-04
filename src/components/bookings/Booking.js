@@ -51,6 +51,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
             })
     }
 
+    //displays the notes, or message that there are none
     const addedNotes = () => {
         if (bookingObject.notes === "") {
             return ` There are no notes attached.`
@@ -59,6 +60,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }
     }
 
+    //changes what the footer renders for staff and customers
     const footer = () => {
         if (currentUser.staff) {
             return <CardFooter className="card__footer">
@@ -71,6 +73,7 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         }
     }
 
+    //changes color of element based on current status
     const statusColor = () => {
         if (bookingObject.status === "Pending") {
             return "warning"
@@ -107,4 +110,3 @@ export const Booking = ({ bookingObject, currentUser, getAllBookings }) => {
         </ListGroup>
     </Card>
 }
-
