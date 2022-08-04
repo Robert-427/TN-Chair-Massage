@@ -123,7 +123,7 @@ export const BookingDetails = () => {
     }
 
     //returns listing of booking with all relevant details, pulled from booking, user, and customer data
-    return <Card style={{ width: '30rem' }}>
+    return <Card style={{ width: '34rem' }}>
         <CardBody>
             <CardTitle tag="h5">
                 Event for {singleCustomer.businessName}
